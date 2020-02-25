@@ -1,13 +1,10 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class BezierCurve extends Curve {
 
-    public BezierCurve(ArrayList<Vector3> points) {
-        this.points = points;
-        int n = points.size();
-        if (pascalsTriangle.size() < n) {
-            fillPascals(n);
-        }
+    public BezierCurve(List<Vector3> points) {
+        super(points);
         fillCurve();
     }
 
@@ -15,7 +12,7 @@ public class BezierCurve extends Curve {
 
         curve = new ArrayList<Vector3>();
         int n = points.size();
-        for (double u = 0; u <= 1; u += 0.005) {
+        for (double u = 0; u <= 1; u += 0.001) {
             curve.add(getPointOnCurve(u, n));
         }
 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Curves extends PApplet {
 
     private BezierCurve b;
+    private BezierSpline s;
 
     public static void main(String[] args) {
         PApplet.main("Curves");
@@ -26,6 +27,7 @@ public class Curves extends PApplet {
         points.add(new Vector3(-2, -2, 0));
         points.add(new Vector3(-2, 2, 0));
         b = new BezierCurve(points);
+        s = new BezierSpline(points);
     }
 
     @Override
@@ -42,6 +44,10 @@ public class Curves extends PApplet {
             ellipse((float)(100*b.getPoints().get(i).getX()), (float)(100*b.getPoints().get(i).getY()), 5, 5);
         }
         for (Vector3 v: b.getCurve()) {
+            point((float)(100*v.getX()), (float)(100*v.getY()));
+        }
+
+        for (Vector3 v: s.getCurve()) {
             point((float)(100*v.getX()), (float)(100*v.getY()));
         }
         popMatrix();

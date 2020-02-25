@@ -1,21 +1,30 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Curve {
 
-    public static ArrayList<int[]> pascalsTriangle = new ArrayList<int[]>();
-    protected ArrayList<Vector3> points;
-    protected ArrayList<Vector3> curve;
+    public static List<int[]> pascalsTriangle = new ArrayList<int[]>();
+    protected List<Vector3> points;
+    protected List<Vector3> curve;
 
-    public ArrayList<Vector3> getPoints() {
+    public List<Vector3> getPoints() {
         return points;
     }
 
-    public void setPoints(ArrayList<Vector3> points) {
+    public void setPoints(List<Vector3> points) {
         this.points = points;
     }
 
-    public ArrayList<Vector3> getCurve() {
+    public List<Vector3> getCurve() {
         return curve;
+    }
+
+    public Curve(List<Vector3> points) {
+        this.points = points;
+        int n = points.size();
+        if (pascalsTriangle.size() < n) {
+            fillPascals(n);
+        }
     }
 
     public void fillPascals(int n) {
