@@ -12,7 +12,7 @@ public class BezierCurve extends Curve {
 
         curve = new ArrayList<Vector3>();
         int n = points.size();
-        for (double u = 0; u <= 1; u += 0.001) {
+        for (double u = 0; u <= 1; u += stepsize) {
             curve.add(getPointOnCurve(u, n));
         }
 

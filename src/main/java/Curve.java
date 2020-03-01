@@ -3,6 +3,8 @@ import java.util.List;
 
 public abstract class Curve {
 
+    protected static final double stepsize = 0.0001;
+
     public static List<int[]> pascalsTriangle = new ArrayList<int[]>();
     protected List<Vector3> points;
     protected List<Vector3> curve;

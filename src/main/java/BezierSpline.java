@@ -20,14 +20,20 @@ public class BezierSpline extends Curve {
                 if (n >= 8) {
                     getCubicCurves(0, n - 4);
                 }
-                curves.add(new BezierCurve(points.subList(n - 5, n - 2)));
-                curves.add(new BezierCurve(points.subList(n - 3, n)));
+                if (n >= 5) {
+                    curves.add(new BezierCurve(points.subList(n - 5, n - 2)));
+                }
+                if (n >= 3) {
+                    curves.add(new BezierCurve(points.subList(n - 3, n)));
+                }
                 break;
             case 2:
                 if (n >= 6) {
                     getCubicCurves(0, n - 2);
                 }
-                curves.add(new BezierCurve(points.subList(n - 3, n)));
+                if (n >= 3) {
+                    curves.add(new BezierCurve(points.subList(n - 3, n)));
+                }
                 break;
         }
         fillCurve();
