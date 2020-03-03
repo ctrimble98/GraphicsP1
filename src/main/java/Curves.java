@@ -2,12 +2,14 @@ import processing.core.PApplet;
 import processing.core.PVector;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class Curves extends PApplet {
 
     private ArrayList<Vector3> points;
     private BezierCurve b;
     private BezierSpline s;
+    private InterpolatedSpline iS;
 
     public static void main(String[] args) {
         PApplet.main("Curves");
@@ -22,9 +24,10 @@ public class Curves extends PApplet {
     public void setup() {
         fill(120,50,240);
         points = new ArrayList<Vector3>();
-//        points.add(new Vector3(0, 0, 0));
-//        points.add(new Vector3(2, 0, 0));
-//        points.add(new Vector3(0, 2, 0));
+//        addPoint(new Vector3(1, 1, 0));
+//        addPoint(new Vector3(2, 5, 0));
+//        addPoint(new Vector3(3, 4, 0));
+//        addPoint(new Vector3(4, 2, 0));
 //        points.add(new Vector3(2, 2, 0));
 //        points.add(new Vector3(-2, -2, 0));
 //        points.add(new Vector3(-2, 2, 0));
@@ -54,6 +57,10 @@ public class Curves extends PApplet {
             for (Vector3 v : s.getCurve()) {
                 point((float) (v.getX()), (float) (v.getY()));
             }
+
+            for (Vector3 v : iS.getCurve()) {
+                point((float) (v.getX()), (float) (v.getY()));
+            }
         }
         popMatrix();
     }
@@ -68,6 +75,7 @@ public class Curves extends PApplet {
         if (points.size() > 1) {
             b = new BezierCurve(points);
             s = new BezierSpline(points);
+            iS = new InterpolatedSpline(points);
         }
     }
 }
