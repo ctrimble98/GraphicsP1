@@ -4,7 +4,7 @@ import java.util.List;
 public class BezierCurve extends Curve {
 
     public BezierCurve(List<Vector3> points) {
-        super(points);
+        super(points, true);
         fillCurve();
     }
 
@@ -26,9 +26,8 @@ public class BezierCurve extends Curve {
     private Vector3 getPointOnCurve(double u, int n) {
         Vector3 result = new Vector3(0, 0, 0);
         for (int i = 0; i < n; i++) {
-            Vector3 partial = points.get(i).copy();
-            partial.mult(pascalsTriangle.get(n - 1)[i] * Math.pow(u, i) * Math.pow((1 - u), n - 1 - i));
-            result.add(partial);
+            Vector3 partial = points.get(i).copy().mult(pascalsTriangle.get(n - 1)[i] * Math.pow(u, i) * Math.pow((1 - u), n - 1 - i));
+            result = result.add(partial);
         }
         return result;
     }

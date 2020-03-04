@@ -10,6 +10,7 @@ public class Curves extends PApplet {
     private BezierCurve b;
     private BezierSpline s;
     private InterpolatedSpline iS;
+    private HermiteSpline h;
 
     public static void main(String[] args) {
         PApplet.main("Curves");
@@ -36,7 +37,8 @@ public class Curves extends PApplet {
     @Override
     public void draw(){
 
-        background(255);
+        background(220);
+        stroke(0);
         line(0, height/2, width, height/2);
         line(width/2, 0, width/2, height);
 
@@ -51,14 +53,22 @@ public class Curves extends PApplet {
         //TODO PRoper solution
         if (points.size() > 1) {
             for (Vector3 v : b.getCurve()) {
+                stroke(255, 0, 0);
                 point((float) (v.getX()), (float) (v.getY()));
             }
 
             for (Vector3 v : s.getCurve()) {
+                stroke(0, 255, 0);
                 point((float) (v.getX()), (float) (v.getY()));
             }
 
             for (Vector3 v : iS.getCurve()) {
+                stroke(0, 0, 255);
+                point((float) (v.getX()), (float) (v.getY()));
+            }
+
+            for (Vector3 v : h.getCurve()) {
+                stroke(255, 0, 255);
                 point((float) (v.getX()), (float) (v.getY()));
             }
         }
@@ -76,6 +86,7 @@ public class Curves extends PApplet {
             b = new BezierCurve(points);
             s = new BezierSpline(points);
             iS = new InterpolatedSpline(points);
+            h = new HermiteSpline(points);
         }
     }
 }

@@ -21,10 +21,10 @@ public abstract class Curve {
         return curve;
     }
 
-    public Curve(List<Vector3> points) {
+    public Curve(List<Vector3> points, boolean needsPascal) {
         this.points = points;
         int n = points.size();
-        if (pascalsTriangle.size() < n) {
+        if (needsPascal && pascalsTriangle.size() < n) {
             fillPascals(n);
         }
     }

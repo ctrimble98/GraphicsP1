@@ -119,6 +119,5 @@ public class InterpolatedSpline {
                 curve.add(new Vector3(u, sln.get(4*i, 0)* Math.pow(u, 3) + sln.get(4*i + 1, 0)* Math.pow(u, 2) + sln.get(4*i + 2, 0) * u + sln.get(4*i + 3, 0), 0));
             }
         }
-        System.out.println(curve.size());
     }
 }

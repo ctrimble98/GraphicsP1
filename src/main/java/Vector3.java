@@ -34,16 +34,16 @@ public class Vector3 {
         this.z = z;
     }
 
-    public void mult(double a) {
-        x *= a;
-        y *= a;
-        z *= a;
+    public Vector3 mult(double a) {
+        return new Vector3(x * a, y * a, z * a);
     }
 
-    public void add(Vector3 v) {
-        x += v.getX();
-        y += v.getY();
-        z += v.getZ();
+    public Vector3 add(Vector3 v) {
+        return new Vector3(x + v.getX(), y + v.getY(), z + v.getZ());
+    }
+
+    public Vector3 sub(Vector3 v) {
+        return new Vector3(x - v.getX(), y - v.getY(), z - v.getZ());
     }
 
     public double dot(Vector3 v) {

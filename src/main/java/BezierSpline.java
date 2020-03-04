@@ -6,7 +6,7 @@ public class BezierSpline extends Curve {
     private List<BezierCurve> curves;
 
     public BezierSpline(List<Vector3> points) {
-        super(points);
+        super(points, true);
         curves = new ArrayList<BezierCurve>();
         int n = points.size();
         int extraPoints = (n - 1) % 3;
@@ -42,7 +42,9 @@ public class BezierSpline extends Curve {
     private void getCubicCurves(int startIndex, int endIndex) {
 
         for (int i = startIndex; i < endIndex - 1; i += 3) {
-            curves.add(new BezierCurve(points.subList(i, i + 4)));
+            List<Vector3> curvePoints = points.subList(i, i + 3);
+            curvePoints.add(points.get(i + 2).add(points.get(i + 3)).mult(1/2.0));
+            curves.add(new BezierCurve(curvePoints));
         }
     }
 
