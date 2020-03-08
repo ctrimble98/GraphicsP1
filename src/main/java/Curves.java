@@ -1,8 +1,6 @@
 import processing.core.PApplet;
-import processing.core.PVector;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 public class Curves extends PApplet {
 
@@ -18,20 +16,12 @@ public class Curves extends PApplet {
 
     @Override
     public void settings() {
-        size(600, 600);
+        size(800, 800);
     }
 
     @Override
     public void setup() {
-        fill(120,50,240);
         points = new ArrayList<Vector3>();
-//        addPoint(new Vector3(1, 1, 0));
-//        addPoint(new Vector3(2, 5, 0));
-//        addPoint(new Vector3(3, 4, 0));
-//        addPoint(new Vector3(4, 2, 0));
-//        points.add(new Vector3(2, 2, 0));
-//        points.add(new Vector3(-2, -2, 0));
-//        points.add(new Vector3(-2, 2, 0));
     }
 
     @Override
@@ -39,39 +29,31 @@ public class Curves extends PApplet {
 
         background(220);
         stroke(0);
-        line(0, height/2, width, height/2);
-        line(width/2, 0, width/2, height);
+        strokeWeight(5);
+        line(0, height/2f, width, height/2f);
+        line(width/2f, 0, width/2f, height);
+
+        strokeWeight(1);
+        line(0, height/4f, width, height/4f);
+        line(width/4f, 0, width/4f, height);
+        line(0, height*3/4f, width/2f, height*3/4f);
+        line(width*3/4f, 0, width*3/4f, height/2f);
 
 
         pushMatrix();
-        translate(width/2, height/2);
+        translate(width/2f, height/2f);
         ellipseMode(CENTER);
         for (Vector3 point: points) {
             ellipse((float)(point.getX()), (float)(point.getY()), 5, 5);
         }
 
-        //TODO PRoper solution
         if (points.size() > 1) {
-            for (Vector3 v : b.getCurve()) {
-                stroke(255, 0, 0);
-                point((float) (v.getX()), (float) (v.getY()));
-            }
-
-            for (Vector3 v : s.getCurve()) {
-                stroke(0, 255, 0);
-                point((float) (v.getX()), (float) (v.getY()));
-            }
-
-            for (Vector3 v : iS.getCurve()) {
-                stroke(0, 0, 255);
-                point((float) (v.getX()), (float) (v.getY()));
-            }
-
-            for (Vector3 v : h.getCurve()) {
-                stroke(255, 0, 255);
-                point((float) (v.getX()), (float) (v.getY()));
-            }
+            b.draw(0, 1);
+            s.draw(0, 1);
+            iS.draw(0, 1);
+            h.draw(0, 1);
         }
+
         popMatrix();
     }
 
@@ -83,10 +65,10 @@ public class Curves extends PApplet {
         points.add(p);
 
         if (points.size() > 1) {
-            b = new BezierCurve(points);
-            s = new BezierSpline(points);
-            iS = new InterpolatedSpline(points);
-            h = new HermiteSpline(points);
+            b = new BezierCurve(this, color(255, 0, 0), points);
+            s = new BezierSpline(this, color(0, 255, 0), points);
+            iS = new InterpolatedSpline(this, color(0, 0, 255), points);
+            h = new HermiteSpline(this, color(255, 0, 255), points);
         }
     }
 }

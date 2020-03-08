@@ -1,18 +1,15 @@
 import org.ejml.simple.SimpleMatrix;
+import processing.core.PApplet;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class InterpolatedSpline {
+public class InterpolatedSpline extends Curve {
 
     private SimpleMatrix coeffs;
-    private List<Vector3> curve;
 
-    public List<Vector3> getCurve() {
-        return curve;
-    }
-
-    public InterpolatedSpline(List<Vector3> points) {
+    public InterpolatedSpline(PApplet canvas, int colour, List<Vector3> points) {
+        super(canvas, colour, points, false);
         int n = points.size();
         int params = 4 * (n - 1);
         coeffs = new SimpleMatrix(params, params);

@@ -62,4 +62,8 @@ public class Vector3 {
     public String toString() {
         return new String("[" + x + ", " + y + ", "+ z + "]");
     }
+
+    public double[] toArray() {
+        return new double[]{x, y, z};
+    }
 }
