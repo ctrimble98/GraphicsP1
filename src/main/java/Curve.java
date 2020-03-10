@@ -55,10 +55,12 @@ public abstract class Curve {
 
     public void draw(int xIndex, int yIndex, Graphics2D g2) {
         if (curve.size() > 1) {
-            int[] x = curve.stream().map(Vector3::getX).mapToInt(Number::intValue).toArray();
-            int[] y = curve.stream().map(Vector3::getY).mapToInt(Number::intValue).toArray();
+            int[][] curvePoints = new int[3][curve.size()];
+            curvePoints[0] = curve.stream().map(Vector3::getX).mapToInt(Number::intValue).toArray();
+            curvePoints[1] = curve.stream().map(Vector3::getY).mapToInt(Number::intValue).toArray();
+            curvePoints[2] = curve.stream().map(Vector3::getZ).mapToInt(Number::intValue).toArray();
             g2.setColor(colour);
-            g2.drawPolyline(x, y, curve.size());
+            g2.drawPolyline(curvePoints[xIndex], curvePoints[yIndex], curve.size());
         }
     }
 }

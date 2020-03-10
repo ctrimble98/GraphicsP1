@@ -54,6 +54,10 @@ public class Vector3 {
         return new Vector3(y*v.getZ() - z*v.getY(), z*v.getX() - x*v.getZ(), x*v.getY() - y*v.getX());
     }
 
+    public Vector3 average(Vector3 v) {
+        return new Vector3((x + v.getX())/2, (y + v.getY())/2, (z + v.getZ())/2);
+    }
+
     public Vector3 copy() {
         return new Vector3(x, y, z);
     }

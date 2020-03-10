@@ -19,11 +19,11 @@ public class BezierCurve extends Curve {
             curve.add(getPointOnCurve(u, n));
         }
 
-        System.out.println(getPointOnCurve(0, n));
-        System.out.println(getPointOnCurve(1, n));
-        for (int i: pascalsTriangle.get(n - 1)) {
-            System.out.print(i+ " ");
-        }
+//        System.out.println(getPointOnCurve(0, n));
+//        System.out.println(getPointOnCurve(1, n));
+//        for (int i: pascalsTriangle.get(n - 1)) {
+//            System.out.print(i+ " ");
+//        }
     }
 
     private Vector3 getPointOnCurve(double u, int n) {

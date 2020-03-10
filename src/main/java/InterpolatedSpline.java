@@ -37,9 +37,9 @@ public class InterpolatedSpline extends Curve {
 
         SimpleMatrix sln = coeffs.solve(res);
 
-        System.out.println(coeffs);
-        System.out.println(res);
-        System.out.println(sln);
+//        System.out.println(coeffs);
+//        System.out.println(res);
+//        System.out.println(sln);
 
         curve = new ArrayList<Vector3>();
         fillCurve(sln, points);
