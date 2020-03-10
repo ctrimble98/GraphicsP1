@@ -11,7 +11,6 @@ public abstract class Curve {
     public static List<int[]> pascalsTriangle = new ArrayList<int[]>();
     protected List<Vector3> points;
     protected List<Vector3> curve;
-    protected PApplet canvas;
     protected Color colour;
 
     public List<Vector3> getPoints() {
@@ -26,8 +25,7 @@ public abstract class Curve {
         return curve;
     }
 
-    public Curve(/*PApplet canvas, */Color colour, List<Vector3> points, boolean needsPascal) {
-//        this.canvas = canvas;
+    public Curve(Color colour, List<Vector3> points, boolean needsPascal) {
         this.colour = colour;
         this.points = points;
         int n = points.size();

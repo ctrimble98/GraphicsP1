@@ -54,6 +54,11 @@ public class Vector3 {
         return new Vector3(y*v.getZ() - z*v.getY(), z*v.getX() - x*v.getZ(), x*v.getY() - y*v.getX());
     }
 
+    public Vector3 normalise() {
+        double mag = Math.sqrt(x*x + y*y + z*z);
+        return new Vector3(x/mag, y/mag, z/mag);
+    }
+
     public Vector3 average(Vector3 v) {
         return new Vector3((x + v.getX())/2, (y + v.getY())/2, (z + v.getZ())/2);
     }

@@ -1,20 +1,32 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class Canvas2D extends JPanel {
 
-    private ArrayList<Vector3> points;
-    private ArrayList<Curve> curves;
+    private Curves frame;
     private int xComp;
     private int yComp;
 
-    public Canvas2D(ArrayList<Vector3> points, ArrayList<Curve> curves, int xComp, int yComp) {
-        this.points = points;
-        this.curves = curves;
+    public Canvas2D(Curves frame, int xComp, int yComp) {
+        this.frame = frame;
         this.xComp = xComp;
         this.yComp = yComp;
         setBackground(Color.WHITE);
+
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+                int[] point = new int[3];
+                point[xComp] = e.getX();
+                point[yComp] = e.getY();
+
+                frame.addPoint(new Vector3(point[0], point[1], point[2]));
+            }
+        });
     }
 
     @Override
@@ -24,12 +36,12 @@ public class Canvas2D extends JPanel {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(Color.black);
         int r = 5;
-        for (Vector3 point : points) {
+        for (Vector3 point : frame.getPoints()) {
             double[] p = point.toArray();
             g2.fillOval((int)(p[xComp] - r/2.0), (int)(p[yComp] - r/2.0), r, r);
         }
         g2.setStroke(new BasicStroke(0.5f));
-        for (Curve c: curves) {
+        for (Curve c: frame.getCurves()) {
             c.draw(xComp, yComp, g2);
         }
     }

@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Curves extends JFrame {
 
@@ -15,16 +16,24 @@ public class Curves extends JFrame {
     private Canvas2D yzCanvas;
     private InputPanel inputs;
 
+    public ArrayList<Vector3> getPoints() {
+        return points;
+    }
+
+    public ArrayList<Curve> getCurves() {
+        return curves;
+    }
+
     public Curves() {
         super();
 
         points = new ArrayList<Vector3>();
         curves = new ArrayList<Curve>();
 
-        xyCanvas = new Canvas2D(points, curves, 0, 1);
-        xzCanvas = new Canvas2D(points, curves, 2, 0);
-        yzCanvas = new Canvas2D(points, curves, 1, 2);
-        inputs = new InputPanel();
+        xyCanvas = new Canvas2D(this, 0, 1);
+        xzCanvas = new Canvas2D(this, 2, 0);
+        yzCanvas = new Canvas2D(this, 1, 2);
+        inputs = new InputPanel(this);
 
         this.setLayout(new GridLayout(2, 2));
         this.add(xyCanvas);
@@ -37,28 +46,43 @@ public class Curves extends JFrame {
         this.setVisible(true);
 
         setBackground(Color.WHITE);
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                addPoint(new Vector3(e.getX(), e.getY(), 0));
-                xyCanvas.repaint();
-                xzCanvas.repaint();
-                yzCanvas.repaint();
-                repaint();
-            }
-        });
     }
 
-    private void addPoint(Vector3 p) {
+    public void addPoint(Vector3 p) {
         points.add(p);
 
+        calculateCurves();
+    }
+
+    private void calculateCurves() {
         if (points.size() > 1) {
-            curves.clear();
-            curves.add(new BezierCurve(Color.red, points));
-            curves.add(new BezierSpline(Color.blue, points));
+            curves.set(0, new BezierCurve(Color.red, points));
+            curves.set(1, new BezierSpline(Color.blue, points));
 //            curves.add(new InterpolatedSpline(Color.green, points));
-            curves.add(new HermiteSpline(Color.magenta, points));
+            curves.set(2, new HermiteSpline(Color.magenta, points));
         }
+
+        xyCanvas.repaint();
+        xzCanvas.repaint();
+        yzCanvas.repaint();
+        repaint();
+    }
+
+    public void findRandomIntersection() {
+        if (points.size() <= 1) {
+            return;
+        }
+
+        for (Vector3 p: points) {
+            p.setZ(0);
+        }
+        calculateCurves();
+
+        double u = Math.random();
+        Vector3 randomPoint = ((BezierCurve)curves.get(0)).getPointOnCurve(u);
+        Vector3 tangent = ((BezierCurve)curves.get(0)).getTangentAtPoint(u);
+
+        curves.add(new StraightLine(Color.black, randomPoint, new Vector3(-1*tangent.getY(), tangent.getX(), 0)));
     }
 
     public static void main(String[] args) {
