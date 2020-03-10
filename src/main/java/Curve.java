@@ -1,4 +1,6 @@
 import processing.core.PApplet;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +12,7 @@ public abstract class Curve {
     protected List<Vector3> points;
     protected List<Vector3> curve;
     protected PApplet canvas;
-    protected int colour;
+    protected Color colour;
 
     public List<Vector3> getPoints() {
         return points;
@@ -24,8 +26,8 @@ public abstract class Curve {
         return curve;
     }
 
-    public Curve(PApplet canvas, int colour, List<Vector3> points, boolean needsPascal) {
-        this.canvas = canvas;
+    public Curve(/*PApplet canvas, */Color colour, List<Vector3> points, boolean needsPascal) {
+//        this.canvas = canvas;
         this.colour = colour;
         this.points = points;
         int n = points.size();
@@ -51,15 +53,12 @@ public abstract class Curve {
         }
     }
 
-    public void draw(int xIndex, int yIndex) {
+    public void draw(int xIndex, int yIndex, Graphics2D g2) {
         if (curve.size() > 1) {
-            canvas.stroke(colour);
-            double[] previousPoint = curve.get(0).toArray();
-            for (int i = 1; i < curve.size(); i++) {
-                double[] point = curve.get(i).toArray();
-                canvas.line((float) previousPoint[xIndex], (float) previousPoint[yIndex], (float) point[xIndex], (float) point[yIndex]);
-                previousPoint = curve.get(i - 1).toArray();
-            }
+            int[] x = curve.stream().map(Vector3::getX).mapToInt(Number::intValue).toArray();
+            int[] y = curve.stream().map(Vector3::getY).mapToInt(Number::intValue).toArray();
+            g2.setColor(colour);
+            g2.drawPolyline(x, y, curve.size());
         }
     }
 }

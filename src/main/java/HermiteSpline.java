@@ -1,5 +1,6 @@
 import processing.core.PApplet;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,8 +8,8 @@ public class HermiteSpline extends Curve {
 
     private List<Vector3> tangents;
 
-    public HermiteSpline(PApplet canvas, int colour, List<Vector3> points) {
-        super(canvas, colour, points, false);
+    public HermiteSpline(/*PApplet canvas, */Color colour, List<Vector3> points) {
+        super(/*canvas, */colour, points, false);
         tangents = new ArrayList<Vector3>();
 
         fillTangents();

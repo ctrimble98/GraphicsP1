@@ -1,12 +1,13 @@
 import processing.core.PApplet;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BezierCurve extends Curve {
 
-    public BezierCurve(PApplet canvas, int colour, List<Vector3> points) {
-        super(canvas, colour, points, true);
+    public BezierCurve(/*PApplet canvas, */Color colour, List<Vector3> points) {
+        super(/*canvas, */colour, points, true);
         fillCurve();
     }
 
