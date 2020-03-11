@@ -1,9 +1,10 @@
-import processing.core.PApplet;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class to produce a bezier curve for a set of control points
+ */
 public class BezierCurve extends Curve {
 
     public BezierCurve(Color colour, List<Vector3> points) {

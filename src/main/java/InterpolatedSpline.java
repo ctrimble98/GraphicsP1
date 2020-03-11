@@ -1,16 +1,19 @@
 import org.ejml.simple.SimpleMatrix;
-import processing.core.PApplet;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class to generate the interpolated spline found at:
+ * https://www.value-at-risk.net/cubic-spline-interpolation/
+ * Wasn't useful in the end as wasn't parametric
+ */
 public class InterpolatedSpline extends Curve {
 
     private SimpleMatrix coeffs;
 
-    public InterpolatedSpline(/*PApplet canvas, */Color colour, List<Vector3> points) {
-        super(/*canvas, */colour, points, false);
+    public InterpolatedSpline(Color colour, List<Vector3> points) {
+        super(colour, points, false);
         int n = points.size();
         int params = 4 * (n - 1);
         coeffs = new SimpleMatrix(params, params);
@@ -36,10 +39,6 @@ public class InterpolatedSpline extends Curve {
         res.set(params/2 - 1, 0, points.get(n - 1).getY());
 
         SimpleMatrix sln = coeffs.solve(res);
-
-//        System.out.println(coeffs);
-//        System.out.println(res);
-//        System.out.println(sln);
 
         curve = new ArrayList<Vector3>();
         fillCurve(sln, points);

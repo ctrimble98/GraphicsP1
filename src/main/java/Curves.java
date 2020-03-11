@@ -10,6 +10,11 @@ public class Curves extends JFrame {
     private static final long serialVersionUID = 1L;
     private ArrayList<Vector3> points;
     private ArrayList<Curve> curves;
+    private ArrayList<StraightLine> lines;
+
+    private BezierCurve bezierCurve;
+    private BezierSpline bezierSpline;
+    private HermiteSpline hermiteSpline;
 
     private Canvas2D xyCanvas;
     private Canvas2D xzCanvas;
@@ -29,6 +34,7 @@ public class Curves extends JFrame {
 
         points = new ArrayList<Vector3>();
         curves = new ArrayList<Curve>();
+        lines = new ArrayList<StraightLine>();
 
         xyCanvas = new Canvas2D(this, 0, 1);
         xzCanvas = new Canvas2D(this, 2, 0);
@@ -50,16 +56,22 @@ public class Curves extends JFrame {
 
     public void addPoint(Vector3 p) {
         points.add(p);
+        lines = new ArrayList<StraightLine>();
 
         calculateCurves();
     }
 
     private void calculateCurves() {
         if (points.size() > 1) {
-            curves.set(0, new BezierCurve(Color.red, points));
-            curves.set(1, new BezierSpline(Color.blue, points));
+            curves.clear();
+            bezierCurve = new BezierCurve(Color.red, points);
+            bezierSpline = new BezierSpline(Color.blue, points);
+            hermiteSpline = new HermiteSpline(Color.magenta, points);
+            curves.add(bezierCurve);
+            curves.add(bezierSpline);
 //            curves.add(new InterpolatedSpline(Color.green, points));
-            curves.set(2, new HermiteSpline(Color.magenta, points));
+            curves.add(hermiteSpline);
+            curves.addAll(lines);
         }
 
         xyCanvas.repaint();
@@ -73,16 +85,17 @@ public class Curves extends JFrame {
             return;
         }
 
-        for (Vector3 p: points) {
-            p.setZ(0);
-        }
-        calculateCurves();
+        points.forEach(v -> v.setZ(0));
 
         double u = Math.random();
-        Vector3 randomPoint = ((BezierCurve)curves.get(0)).getPointOnCurve(u);
-        Vector3 tangent = ((BezierCurve)curves.get(0)).getTangentAtPoint(u);
+        Vector3 randomPoint = bezierCurve.getPointOnCurve(u);
+        Vector3 tangent = bezierCurve.getTangentAtPoint(u);
 
-        curves.add(new StraightLine(Color.black, randomPoint, new Vector3(-1*tangent.getY(), tangent.getX(), 0)));
+        lines.add(new StraightLine(Color.black, randomPoint, new Vector3(-1*tangent.getY(), tangent.getX(), 0)));
+        for (StraightLine line: lines) {
+            line.addIntersections(hermiteSpline.findIntersection(line));
+        }
+        calculateCurves();
     }
 
     public static void main(String[] args) {

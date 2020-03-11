@@ -9,6 +9,8 @@ public class InputPanel extends JPanel {
 
     public InputPanel(Curves frame) {
         setLayout(new FlowLayout(FlowLayout.LEADING, 100, 5));
+        setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
+
         NumericTextField xField = new NumericTextField("x:");
         NumericTextField yField = new NumericTextField("y:");
         NumericTextField zField = new NumericTextField("z:");
@@ -21,6 +23,21 @@ public class InputPanel extends JPanel {
         add(zField);
         add(newPoint);
         add(intersection);
+
+        JLabel bezierCurveLabel = new JLabel("Red - Bezier Curve");
+        JLabel bezierSplineLabel = new JLabel("Blue - Bezier Spline");
+        JLabel hermiteSplineLabel = new JLabel("Magenta - Hermite Spline");
+        JLabel intersectionsLabel = new JLabel("Green - Intersection Line and Points");
+
+        bezierCurveLabel.setForeground(Color.RED);
+        bezierSplineLabel.setForeground(Color.BLUE);
+        hermiteSplineLabel.setForeground(Color.MAGENTA);
+        intersectionsLabel.setForeground(new Color(6, 89, 10));
+
+        add(bezierCurveLabel);
+        add(bezierSplineLabel);
+        add(hermiteSplineLabel);
+        add(intersectionsLabel);
 
         newPoint.addActionListener(new ActionListener() {
             @Override

@@ -1,5 +1,3 @@
-import processing.core.PVector;
-
 public class Vector3 {
 
     private double x, y, z;
@@ -54,8 +52,12 @@ public class Vector3 {
         return new Vector3(y*v.getZ() - z*v.getY(), z*v.getX() - x*v.getZ(), x*v.getY() - y*v.getX());
     }
 
+    public double getMag() {
+        return Math.sqrt(x*x + y*y + z*z);
+    }
+
     public Vector3 normalise() {
-        double mag = Math.sqrt(x*x + y*y + z*z);
+        double mag = getMag();
         return new Vector3(x/mag, y/mag, z/mag);
     }
 

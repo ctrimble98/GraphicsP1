@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 public class Canvas2D extends JPanel {
 
@@ -15,6 +14,20 @@ public class Canvas2D extends JPanel {
         this.xComp = xComp;
         this.yComp = yComp;
         setBackground(Color.WHITE);
+        setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
+        setLayout(new FlowLayout(FlowLayout.LEADING, 10, 10));
+
+        switch(xComp + yComp) {
+            case 1:
+                add(new JLabel("X-Y"));
+                break;
+            case 2:
+                add(new JLabel("Z-X"));
+                break;
+            case 3:
+                add(new JLabel("Y-Z"));
+                break;
+        }
 
         addMouseListener(new MouseAdapter() {
             @Override
