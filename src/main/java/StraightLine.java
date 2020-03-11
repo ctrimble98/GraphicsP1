@@ -26,11 +26,15 @@ public class StraightLine extends Curve {
     public void draw(int xIndex, int yIndex, Graphics2D g2) {
         double[] p1 = point.add(derivative.mult(1000)).toArray();
         double[] p2 = point.add(derivative.mult(-1000)).toArray();
+
+        //Set the colour and  circle diameter
         g2.setColor(new Color(6, 89, 10));
+        double d = 5;
+
+        g2.drawOval((int)(point.toArray()[xIndex] - (d/2)), (int)(point.toArray()[yIndex]  - (d/2)), (int)d, (int)d);
         g2.drawLine((int)p1[xIndex], (int)p1[yIndex], (int)p2[xIndex], (int)p2[yIndex]);
         if (intersections != null) {
             for (Vector3 intersection: intersections) {
-                double d = 5;
                 g2.drawOval((int)(intersection.toArray()[xIndex] - (d/2)), (int)(intersection.toArray()[yIndex]  - (d/2)), (int)d, (int)d);
             }
         }
